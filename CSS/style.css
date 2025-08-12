@@ -1,0 +1,148 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: DnD;
+    src: url('../fonts/DnDC.ttf');
+}
+
+
+body {
+    background-image: url('../img/grunge-paper-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    display: grid;
+}
+
+nav ul{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 50px;
+    justify-content: center;
+    justify-items: center;
+    list-style-type: none;
+    margin: 0;
+}
+
+nav ul li{
+    background-color: black;
+    width: 70%;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+}
+
+nav ul li:hover{
+    background-color: hsl(199, 31%, 14%);
+    transition: 0.5s;
+    width: 70%;
+    text-align: center;
+    line-height: 50px;
+}
+
+
+nav li a{
+    text-decoration: none;
+    color: white;
+    font-family: DnD;
+    font-size: 20px;
+}
+
+.parent{
+    display: grid;
+    grid-template-rows: 200px 0.5fr repeat(2, 1fr) 0.5fr;
+    grid-template-columns: 1fr;
+    grid-row-gap: 1em;
+    height: 100vh;
+}
+
+
+.parent>footer {
+    padding: 0.5rem;
+    background-color: rgba(21, 36, 41, 0.8);
+    grid-area: 5 / 1 / 6 / 6;
+}
+
+footer ul {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    list-style-type: none;
+    justify-content: center;
+    align-items: center;
+}
+
+footer li a {
+    text-decoration: none;
+    color: white;
+}
+
+#insta:hover {
+    text-decoration: none;
+    color: rgb(239, 2, 115);
+    transition: 0.5s;
+}
+
+#youtube:hover{
+    text-decoration: none;
+    color: red;
+    transition: 0.5s;
+}
+
+#twitter:hover{
+    text-decoration: none;
+    color: rgb(69, 164, 225);
+    transition: 0.5s;
+}
+
+footer span{
+    display: grid;
+    padding: 5px;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.banner-image {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.banner-image img {
+    display: grid;
+    min-width: 600px;
+    min-height: 200px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    margin-top: 10px;
+    border-radius: 70%;
+}
+
+
+.parent>nav{
+   grid-area: 2 / 1 / 3 / 6;
+   padding: 1rem;
+}
+
+.parent>article{
+    grid-area: 3 / 1 / 5 / 6;
+    padding: 1rem;
+    background-color: rgba(215, 165, 93, 0.8);
+    border: solid 3px rgba(138, 106, 59, 0.8);
+    border-radius: 5px;
+    margin: 25px;
+}
+
+article h1 {
+    text-align: center;
+    font-family: DnD;
+    font-size: 50px;
+}
+
+
+
