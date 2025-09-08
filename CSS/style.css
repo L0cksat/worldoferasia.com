@@ -24,8 +24,8 @@ body {
     background-image: url('../img/grunge-paper-background.jpg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-attachment: fixed;
-    height: 100vh;
+    background-attachment: scroll;
+    min-height: 100vh;
     display: grid;
 }
 
@@ -37,21 +37,19 @@ nav ul{
     justify-items: center;
     list-style-type: none;
     margin: 0;
-    gap: 50px;
 }
 
 nav ul li{
     background-color: black;
-    width: 70%;
     text-align: center;
     line-height: 50px;
     border-radius: 5px;
+    padding: 0 40px;
 }
 
 nav ul li:hover{
     background-color: hsl(199, 31%, 14%);
     transition: 0.5s;
-    width: 70%;
     text-align: center;
     line-height: 50px;
 }
@@ -228,6 +226,30 @@ article h3{
     font-family: outfit;
     font-size: 15px;
     line-height: 1.5;
+}
+
+@media (max-width: 575.98px) {
+    nav ul{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 10px;
+    }
+
+    nav ul li{
+        width: 100%;
+    }
+}
+
+@media (min-width: 575.98px) and (max-width: 991.98px){
+    nav ul{
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        gap: 10px;
+    }
+
+    nav ul li{
+        width: 100%;
+    }
 }
 
 
