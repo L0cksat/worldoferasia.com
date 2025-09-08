@@ -9,6 +9,16 @@
     src: url('../fonts/DnDC.ttf');
 }
 
+@font-face {
+    font-family: DnD2;
+    src: url('../fonts/DungeonDepths.ttf');
+}
+
+@font-face{
+    font-family: outfit;
+    src: url('../fonts/Outfit-VariableFont_wght.ttf');
+}
+
 
 body {
     background-image: url('../img/grunge-paper-background.jpg');
@@ -27,6 +37,7 @@ nav ul{
     justify-items: center;
     list-style-type: none;
     margin: 0;
+    gap: 50px;
 }
 
 nav ul li{
@@ -49,23 +60,23 @@ nav ul li:hover{
 nav li a{
     text-decoration: none;
     color: white;
-    font-family: DnD;
-    font-size: 20px;
+    font-family: DnD2;
+    font-size: 8px;
 }
 
 .parent{
     display: grid;
-    grid-template-rows: 200px 0.5fr repeat(2, 1fr) 0.5fr;
+    grid-template-rows: 200px 0.5fr auto 0.5fr;
     grid-template-columns: 1fr;
     grid-row-gap: 1em;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 
 .parent>footer {
     padding: 0.5rem;
     background-color: rgba(21, 36, 41, 0.8);
-    grid-area: 5 / 1 / 6 / 6;
+    grid-area: 4 / 1 / 5 / 6;
 }
 
 footer ul {
@@ -100,12 +111,18 @@ footer li a {
 }
 
 footer span{
+    font-family: outfit;
     display: grid;
     padding: 5px;
     margin-top: 15px;
     justify-content: center;
     align-items: center;
     color: white;
+}
+
+footer ul li{
+    margin-left: 45px;
+    font-family: outfit;
 }
 
 .banner-image {
@@ -115,12 +132,12 @@ footer span{
 .banner-image img {
     display: grid;
     min-width: 600px;
-    min-height: 200px;
+    min-height: 220px;
     height: 100%;
     width: 100%;
     object-fit: cover;
     margin-top: 10px;
-    border-radius: 70%;
+    margin-left: 0;
 }
 
 
@@ -130,7 +147,7 @@ footer span{
 }
 
 .parent>article{
-    grid-area: 3 / 1 / 5 / 6;
+    grid-area: 3 / 1 / 4 / 6;
     padding: 1rem;
     background-color: rgba(215, 165, 93, 0.8);
     border: solid 3px rgba(138, 106, 59, 0.8);
@@ -140,8 +157,77 @@ footer span{
 
 article h1 {
     text-align: center;
-    font-family: DnD;
-    font-size: 50px;
+    font-family: DnD2;
+    font-size: 20px;
+}
+
+article h3{
+    text-align: center;
+    font-family: DnD2;
+    font-size: 15px;
+}
+
+/*Character boxes on the Character Page.*/
+.charactercontainer{
+    font-family: DnD2;
+    font-size: 10px;
+    display: grid;
+    grid-template-columns: reapeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 20px;
+}
+
+.characterbox{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 5px solid black;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    padding: 20px;
+}
+
+.charimage{
+    width: 150px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.characterdetails h4{
+    font-family: DnD2;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.characterdetails p{
+    font-family: outfit;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/*Audio box for the Audio Page.*/
+.audiocontainer{
+    display: grid;
+    grid-template-columns: reapeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 50px;
+}
+
+.audiobox{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 5px solid black;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    padding: 20px;
+}
+
+.audiodetails h4{
+    font-family: outfit;
+    font-size: 15px;
+    line-height: 1.5;
 }
 
 
