@@ -26,7 +26,29 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
-      # appleboy/scp-action supports passphrase-protected keys via VPS_SSH_PASSPHRASE
+      # Prepare target on the VPS BEFORE scp.
+      # rm:true on scp-action deletes the whole target folder and often fails with
+      # "Process exited with status 1" when the path is owned by root/www-data
+      # or is a web root that the deploy user cannot remove.
+      - name: Prepare VPS target directory
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          script: |
+            set -euo pipefail
+            TARGET="${{ secrets.VPS_TARGET_DIR }}"
+            echo "TARGET=${TARGET}"
+            mkdir -p "${TARGET}"
+            # Clear previous site files, but keep the directory itself
+            find "${TARGET}" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+            # Prove the deploy user can write here
+            touch "${TARGET}/.deploy-write-test" && rm -f "${TARGET}/.deploy-write-test"
+            ls -la "$(dirname "${TARGET}")"
+            ls -lad "${TARGET}"
+
       - name: Deploy dist/ to VPS
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -34,8 +56,10 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          source: 'dist/*'
+          source: 'dist/'
           target: ${{ secrets.VPS_TARGET_DIR }}
           strip_components: 1
           overwrite: true
-          rm: true
+          # Do NOT use rm: true — it removes the target directory and commonly
+          # causes status 1 on web roots / root-owned paths.
+          debug: true

@@ -110,6 +110,20 @@ Pushing to `main` (or running the workflow manually) executes [`.github/workflow
 
 Confirm these secrets exist under **Settings → Secrets and variables → Actions** before relying on the first deploy.
 
+### If deploy fails with `Process exited with status 1`
+
+SSH usually worked; the copy step could not write the target. On the VPS, check:
+
+```bash
+# Replace with your real user + VPS_TARGET_DIR values
+ls -lad /path/to/target
+# Owner should be VPS_USER (not root), and the user must be able to write:
+sudo chown -R YOUR_USER:YOUR_USER /path/to/target
+sudo chmod u+rwx /path/to/target
+```
+
+Also confirm `VPS_TARGET_DIR` is an absolute path that already exists (or whose parent your user can create), e.g. `/var/www/earisia` — not a relative path.
+
 ---
 
 ## License / rights
