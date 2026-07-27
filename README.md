@@ -96,7 +96,8 @@ Pushing to `main` (or running the workflow manually) executes [`.github/workflow
 
 1. Checkout + Node 22
 2. `npm ci` + `npm run build`
-3. Upload `dist/*` to the VPS with [`appleboy/scp-action`](https://github.com/appleboy/scp-action)
+3. SSH probe of `VPS_TARGET_DIR` (mkdir + write test)
+4. Sync `dist/` to the VPS with [`Burnett01/rsync-deployments`](https://github.com/Burnett01/rsync-deployments) (`rsync --delete`)
 
 ### Required repository secrets
 
@@ -110,19 +111,17 @@ Pushing to `main` (or running the workflow manually) executes [`.github/workflow
 
 Confirm these secrets exist under **Settings → Secrets and variables → Actions** before relying on the first deploy.
 
-### If deploy fails with `Process exited with status 1`
+### If deploy fails
 
-SSH usually worked; the copy step could not write the target. On the VPS, check:
+1. Confirm the **Probe VPS target directory** step passes (proves SSH + write access).
+2. On the VPS, check ownership/space:
 
 ```bash
-# Replace with your real user + VPS_TARGET_DIR values
 ls -lad /path/to/target
-# Owner should be VPS_USER (not root), and the user must be able to write:
-sudo chown -R YOUR_USER:YOUR_USER /path/to/target
-sudo chmod u+rwx /path/to/target
+df -h /path/to/target
 ```
 
-Also confirm `VPS_TARGET_DIR` is an absolute path that already exists (or whose parent your user can create), e.g. `/var/www/earisia` — not a relative path.
+`VPS_TARGET_DIR` must be an absolute path (e.g. `/var/www/html/worldoferasia.stephennicholasjones.com`).
 
 ---
 
