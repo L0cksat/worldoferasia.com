@@ -113,12 +113,13 @@ Confirm these secrets exist under **Settings → Secrets and variables → Actio
 
 ### If deploy fails
 
-1. Confirm the **Probe VPS target directory** step passes (proves SSH + write access).
-2. On the VPS, check ownership/space:
+1. Confirm the **Probe VPS target directory** step passes (proves SSH + write access). Check its `df -h` / `df -ih` output — **no space left on device** means free disk (or inodes) on the VPS before redeploying.
+2. On the VPS:
 
 ```bash
-ls -lad /path/to/target
-df -h /path/to/target
+df -h
+df -ih
+sudo du -xh / --max-depth=2 2>/dev/null | sort -h | tail -n 20
 ```
 
 `VPS_TARGET_DIR` must be an absolute path (e.g. `/var/www/html/worldoferasia.stephennicholasjones.com`).

@@ -26,7 +26,7 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
-      # SSH connectivity + write probe (credentials already work if this passes)
+      # SSH connectivity + write/space probe
       - name: Probe VPS target directory
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -40,13 +40,16 @@ jobs:
             echo "TARGET=${TARGET}"
             mkdir -p "${TARGET}"
             touch "${TARGET}/.deploy-write-test" && rm -f "${TARGET}/.deploy-write-test"
-            df -h "${TARGET}"
+            echo "=== disk usage ==="
+            df -h
+            echo "=== inode usage ==="
+            df -ih
+            echo "=== target ==="
             ls -lad "${TARGET}"
 
-      # rsync is more reliable than appleboy/scp-action's tar/scp pipeline
-      # (that action failed with opaque "status 1" even as root).
+      # rsync syncs dist/ → VPS_TARGET_DIR (requires free disk space on the VPS)
       - name: Deploy dist/ to VPS via rsync
-        uses: Burnett01/rsync-deployments@7.0.2
+        uses: Burnett01/rsync-deployments@8.0.0
         with:
           switches: -avzr --delete
           path: dist/
@@ -55,4 +58,3 @@ jobs:
           remote_user: ${{ secrets.VPS_USER }}
           remote_key: ${{ secrets.VPS_SSH_KEY }}
           remote_key_pass: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          debug: true
