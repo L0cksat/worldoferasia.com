@@ -1,0 +1,40 @@
+---
+const links = [
+	{ href: '/', label: 'Home' },
+	{ href: '/world', label: 'World' },
+	{ href: '/characters', label: 'Characters' },
+	{ href: '/sessions', label: 'Sessions' },
+	{ href: '/contact', label: 'Contact' },
+	{ href: '#', label: 'The World of Alabaris', id: 'menuButton5' },
+];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<nav class="w-full max-w-[2500px] justify-self-center px-3 py-3 sm:px-4">
+	<ul
+		class="nav-links m-0 flex w-full list-none flex-nowrap items-stretch justify-center gap-4 overflow-x-auto rounded-[10px] border-[3px] border-black bg-black px-3 sm:gap-5"
+	>
+		{
+			links.map((link) => {
+				const normalized = link.href.replace(/\/$/, '') || '/';
+				const isActive = pathname === normalized;
+				return (
+					<li class="flex-none whitespace-nowrap rounded-[5px] bg-black text-center transition-colors duration-500 hover:bg-earisia-nav-hover">
+						<a
+							href={link.href}
+							id={link.id}
+							class:list={[
+								'font-dnd2 inline-block whitespace-nowrap px-4 text-[clamp(11px,1.15vw,15px)] leading-[50px] text-white no-underline max-md:px-3 max-md:leading-[44px] max-md:text-xs',
+								{ 'underline decoration-2 underline-offset-4': isActive },
+							]}
+							aria-current={isActive ? 'page' : undefined}
+						>
+							{link.label}
+						</a>
+					</li>
+				);
+			})
+		}
+	</ul>
+</nav>

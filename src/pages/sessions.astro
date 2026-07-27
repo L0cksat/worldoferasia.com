@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const episodes = [
+	{
+		title: 'Episode 1: The Journey Begins.',
+		src: 'https://dl.dropboxusercontent.com/scl/fi/lqkcyw7bu7qghokvvc3jh/1_dnd_session_1_02-02-2025.mp3?rlkey=ztles6l8cfl1khucbag4kzg08',
+		img: '/img/Session 1 (1).webp',
+	},
+	{
+		title: 'Episode 2: Trouble in Boghdahn.',
+		src: 'https://dl.dropboxusercontent.com/scl/fi/xef0689dx445c9k6xv0j8/2_dnd_session_2_09-02-2025.mp3?rlkey=aikq4hox6mhsd8s33stkrhaup',
+		img: '/img/Session 2(1).webp',
+	},
+	{
+		title: 'Episode 3: The more, the merrier!',
+		src: 'https://dl.dropboxusercontent.com/scl/fi/oue89nj03ztph1kw5c7f4/3_dnd_session_3_02-03-2025.mp3?rlkey=tx3kdiigawyjs6uahp9usht3y',
+		img: '/img/Session 3(1).webp',
+	},
+	{
+		title: 'Episode 4: Mine Madness and a mysterious Panda.',
+		src: 'https://dl.dropboxusercontent.com/scl/fi/7so92jz0kbvzhr7dlvwq5/4_dnd_session_4_16-03-2025.mp3?rlkey=75nbixpebfn5kv5kg724hdjc9',
+		img: '/img/Session 4(1).webp',
+	},
+	{
+		title: "Episode 5: Filler episode - Let's play ball!",
+		src: 'https://dl.dropboxusercontent.com/scl/fi/fwh6ie6ke281sggp7nhf3/5_dnd_session_5_30-03-2025.mp3?rlkey=vyz3ixlzzvn8n0adxs9i3q2ci',
+		img: '/img/Session 5(1).webp',
+	},
+];
+---
+
+<BaseLayout
+	title="World of Erasia - Sessions"
+	description="Listen to recorded sessions from the World of Earisia campaign."
+>
+	<article>
+		<h1>This is the Sessions page.</h1>
+		<h3>Get up to date on the lore and the story of our adventurers below:</h3>
+		<h3>Disclaimer: All Episodes are in Spanish.</h3>
+		<div class="audiocontainer">
+			{
+				episodes.map((episode) => (
+					<div class="audiobox">
+						{episode.img && (
+							<div class="audioimage">
+								<img src={episode.img} alt={`Cover for ${episode.title}`} />
+							</div>
+						)}
+						<audio controls>
+							<source src={episode.src} type="audio/mpeg" />
+						</audio>
+						<div class="audiodetails">
+							<h4>{episode.title}</h4>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</article>
+</BaseLayout>

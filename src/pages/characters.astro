@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const characters = (await getCollection('characters')).sort((a, b) =>
+	a.data.name.localeCompare(b.data.name),
+);
+---
+
+<BaseLayout
+	title="World of Erasia - Characters"
+	description="Player characters of the World of Earisia campaign."
+>
+	<article>
+		<h1>This is the Characters page.</h1>
+		<h3>In alphabetical order:</h3>
+		<div class="charactercontainer">
+			{
+				characters.map((character) => (
+					<a href={`/characters/${character.id}`} class="characterbox-link">
+						<div class="characterbox">
+							{character.data.image && (
+								<img
+									src={character.data.image}
+									alt={`Image of ${character.data.name}`}
+									class="charimage"
+								/>
+							)}
+							<div class="characterdetails">
+								<h4>{character.data.name}</h4>
+								{character.data.playedBy && (
+									<p>Played by {character.data.playedBy}.</p>
+								)}
+							</div>
+						</div>
+					</a>
+				))
+			}
+		</div>
+	</article>
+</BaseLayout>

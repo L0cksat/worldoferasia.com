@@ -1,0 +1,424 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: DnD;
+    src: url('../fonts/DnDC.ttf');
+}
+
+@font-face {
+    font-family: DnD2;
+    src: url('../fonts/DungeonDepths.ttf');
+}
+
+@font-face {
+    font-family: outfit;
+    src: url('../fonts/Outfit-VariableFont_wght.ttf');
+}
+
+
+body {
+    background-image: url('../img/grunge-paper-background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: scroll;
+    min-height: 100vh;
+    display: grid;
+}
+
+nav ul {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 50px;
+    justify-content: center;
+    justify-items: center;
+    list-style-type: none;
+    margin: 0;
+    border: solid 3px black;
+    border-radius: 10px;
+    background-color: black;
+}
+
+.burger-menu {
+    display: none;
+}
+
+
+nav ul li {
+    background-color: black;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 5px;
+    padding: 0 40px;
+}
+
+nav ul li:hover {
+    background-color: hsl(199, 31%, 14%);
+    transition: 0.5s;
+    text-align: center;
+    line-height: 50px;
+}
+
+
+nav li a {
+    text-decoration: none;
+    color: white;
+    font-family: DnD2;
+    font-size: 15px;
+}
+
+#menuButton5 {
+    display: block;
+}
+
+.parent {
+    display: grid;
+    grid-template-rows: 200px 0.5fr auto 0.5fr;
+    grid-template-columns: 1fr;
+    grid-row-gap: 1em;
+    min-height: 100vh;
+}
+
+
+.parent>footer {
+    padding: 0.5rem;
+    background-color: rgba(21, 36, 41, 0.8);
+    grid-area: 4 / 1 / 5 / 6;
+}
+
+footer ul {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    list-style-type: none;
+    justify-content: center;
+    align-items: center;
+}
+
+footer li a {
+    text-decoration: none;
+    color: white;
+}
+
+#insta:hover {
+    text-decoration: none;
+    color: rgb(239, 2, 115);
+    transition: 0.5s;
+}
+
+#youtube:hover {
+    text-decoration: none;
+    color: red;
+    transition: 0.5s;
+}
+
+#twitter:hover {
+    text-decoration: none;
+    color: rgb(69, 164, 225);
+    transition: 0.5s;
+}
+
+footer span {
+    font-family: outfit;
+    display: grid;
+    padding: 5px;
+    margin-top: 15px;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+footer ul li {
+    margin-left: 45px;
+    font-family: outfit;
+}
+
+.banner-image {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.banner-image img {
+    display: grid;
+    min-width: 600px;
+    min-height: 220px;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    margin-top: 10px;
+    margin-left: 0;
+}
+
+
+.parent>nav {
+    grid-area: 2 / 1 / 3 / 6;
+    padding: 1rem;
+}
+
+.parent>article {
+    grid-area: 3 / 1 / 4 / 6;
+    padding: 1rem;
+    background-color: rgba(215, 165, 93, 0.8);
+    border: solid 3px rgba(138, 106, 59, 0.8);
+    border-radius: 5px;
+    margin: 25px;
+}
+
+article {
+    max-width: 900;
+    padding: 0 10px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+}
+
+article h1 {
+    text-align: center;
+    font-family: DnD2;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+article h3 {
+    text-align: center;
+    font-family: DnD2;
+    font-size: 15px;
+}
+
+.mainPara {
+    margin-bottom: 20px;
+    margin-top: 20px;
+    font-family: DnD2;
+    font-size: 10px;
+    text-align: center;
+}
+
+.imageContainer {
+    width: 250px;
+    height: 250px;
+}
+
+.imageSquare img {
+    width: 100%;
+    height: 100%;
+}
+
+article dl dt {
+    font-family: DnD2;
+    font-size: 9px;
+    margin-bottom: 3px;
+}
+
+article dl dd {
+    font-family: outfit;
+    font-size: 15px;
+    padding: 10px;
+}
+
+/*World page edits*/
+
+/*Character boxes on the Character Page.*/
+.charactercontainer {
+    font-family: DnD2;
+    font-size: 10px;
+    display: grid;
+    grid-template-columns: reapeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 20px;
+}
+
+.characterbox {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 5px solid black;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    padding: 20px;
+}
+
+.charimage {
+    width: 150px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+.characterdetails h4 {
+    font-family: DnD2;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.characterdetails p {
+    font-family: outfit;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+/*Audio box for the Audio Page.*/
+.audiocontainer {
+    display: grid;
+    grid-template-columns: reapeat(auto-fit, minmax(300px, 1fr));
+    margin-top: 50px;
+}
+
+.audiobox {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border: 5px solid black;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-bottom: 12px;
+    padding: 20px;
+}
+
+.audiodetails h4 {
+    font-family: outfit;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+@media (max-width: 575.98px) {
+    .burger-menu {
+        display: flex;
+        justify-content: center;
+        height: 40px;
+        width: 40px;
+        background: black;
+        color: white;
+        border: none;
+        padding: 0px;
+        cursor: pointer;
+        font-size: 20px;
+        top: 25px;
+        right: 25px;
+        z-index: 15;
+    }
+
+    .burger-menu::before{
+        content: "\f0c9";
+        font-family: FontAwesome;
+        font-weight: 900;
+        font-size: 20px;
+        color: white;
+    }
+
+
+    nav ul.nav-links {
+        display: none !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: black;
+        border: none;
+        border-radius: 0;
+        padding-top: 50px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    nav ul.nav-links.active {
+        display: flex !important;
+        flex-direction: column;
+        z-index: 5;
+    }
+
+    .parent>nav {
+        position: relative;
+        grid-area: 2 / 1 / 3 / 6;
+        padding: 1rem;
+    }
+
+    nav ul li {
+        width: 100%;
+        padding: 0;
+        line-height: 40px;
+    }
+
+    nav ul li a {
+        font-size: 14px;
+    }
+
+    .imageConWorld {
+        min-width: 530px;
+        min-height: 100px;
+
+    }
+
+    .imageWorld img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (min-width: 575.98px) and (max-width: 991.98px) {
+   .burger-menu {
+        display: flex;
+        justify-content: center;
+        height: 40px;
+        width: 40px;
+        background: black;
+        color: white;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        top: 25px;
+        right: 25px;
+        z-index: 5;
+    }
+
+
+    nav ul.nav-links {
+        display: none !important;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: black;
+        border: none;
+        border-radius: 0;
+        padding-top: 50px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    nav ul.nav-links.active {
+        display: flex !important;
+        flex-direction: column;
+        z-index: 5;
+    }
+
+    .parent>nav {
+        position: relative;
+        grid-area: 2 / 1 / 3 / 6;
+        padding: 1rem;
+    }
+
+    nav ul li {
+        width: 100%;
+        padding: 0;
+        line-height: 40px;
+    }
+
+    nav ul li a {
+        font-size: 14px;
+    }
+
+    .imageConWorld {
+        min-width: 530px;
+        min-height: 100px;
+
+    }
+
+    .imageWorld img {
+        width: 100%;
+        height: 100%;
+    }
+}

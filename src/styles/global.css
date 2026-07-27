@@ -1,0 +1,348 @@
+@import "tailwindcss";
+
+/* ---- Custom fonts (same files as the original site) ---- */
+@font-face {
+	font-family: DnD;
+	src: url('/fonts/DnDC.ttf');
+}
+
+@font-face {
+	font-family: DnD2;
+	src: url('/fonts/DungeonDepths.ttf');
+}
+
+@font-face {
+	font-family: outfit;
+	src: url('/fonts/Outfit-VariableFont_wght.ttf');
+}
+
+@theme {
+	--font-dnd: DnD, serif;
+	--font-dnd2: DnD2, serif;
+	--font-outfit: outfit, sans-serif;
+	--color-earisia-panel: rgba(215, 165, 93, 0.8);
+	--color-earisia-border: rgba(138, 106, 59, 0.8);
+	--color-earisia-footer: rgba(21, 36, 41, 0.8);
+	--color-earisia-nav-hover: hsl(199, 31%, 14%);
+}
+
+/* ---- Base reset + paper background (preserved) ---- */
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+html {
+	scroll-behavior: auto; /* GSAP ScrollSmoother / Lenis-style control can take over */
+}
+
+body {
+	background-image: url('/img/grunge-paper-background.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-attachment: scroll;
+	min-height: 100vh;
+	display: grid;
+}
+
+/* ---- Layout shell ---- */
+.parent {
+	display: grid;
+	grid-template-rows: auto auto 1fr auto;
+	grid-template-columns: 1fr;
+	grid-row-gap: 1em;
+	min-height: 100vh;
+	justify-items: center;
+	width: 100%;
+}
+
+.banner-image {
+	grid-column: 1 / -1;
+	width: 100%;
+}
+
+.banner-image img {
+	display: block;
+	min-height: 220px;
+	height: 200px;
+	width: 100%;
+	object-fit: cover;
+	margin-top: 10px;
+}
+
+/* Nav placement only — look & feel live in Nav.astro (Tailwind) */
+.parent > nav {
+	grid-column: 1 / -1;
+}
+
+.parent > article {
+	grid-column: 1 / -1;
+	width: min(960px, calc(100% - 2.5rem));
+	justify-self: center;
+	padding: 1.25rem 1.5rem;
+	background-color: rgba(215, 165, 93, 0.8);
+	border: solid 3px rgba(138, 106, 59, 0.8);
+	border-radius: 5px;
+	margin: 0.5rem auto 1.5rem;
+}
+
+.parent > footer {
+	grid-column: 1 / -1;
+	width: 100%;
+	padding: 0.5rem;
+	background-color: rgba(21, 36, 41, 0.8);
+}
+
+/* ---- Article (centered content on every page) ---- */
+article {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+article h1 {
+	text-align: center;
+	font-family: DnD2;
+	font-size: 20px;
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+article h3 {
+	text-align: center;
+	font-family: DnD2;
+	font-size: 15px;
+	width: 100%;
+}
+
+.mainPara {
+	margin-bottom: 20px;
+	margin-top: 20px;
+	font-family: DnD2;
+	font-size: 10px;
+	text-align: center;
+	width: 100%;
+	max-width: 42rem;
+}
+
+.imageContainer {
+	width: 250px;
+	height: 250px;
+}
+
+.imageSquare img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+}
+
+article dl {
+	width: 100%;
+	max-width: 42rem;
+	text-align: center;
+}
+
+article dl dt {
+	font-family: DnD2;
+	font-size: 9px;
+	margin-bottom: 3px;
+	text-align: center;
+}
+
+article dl dd {
+	font-family: outfit;
+	font-size: 15px;
+	padding: 10px;
+	text-align: center;
+}
+
+/* ---- Characters ---- */
+.charactercontainer {
+	font-family: DnD2;
+	font-size: 10px;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+	gap: 1.75rem;
+	margin-top: 1.5rem;
+	width: 100%;
+	justify-items: stretch;
+}
+
+.characterbox {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	border: 5px solid black;
+	border-radius: 5px;
+	margin: 0;
+	padding: 1.25rem;
+	text-align: left;
+	min-height: 100%;
+}
+
+a.characterbox-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+	height: 100%;
+}
+
+a.characterbox-link:hover .characterbox {
+	background-color: rgba(0, 0, 0, 0.06);
+	transition: background-color 0.3s ease;
+}
+
+.charimage {
+	width: 150px;
+	height: 180px;
+	object-fit: cover;
+	border-radius: 3px;
+}
+
+.characterdetails h4 {
+	text-align: center;
+	font-family: DnD2;
+	font-size: 18px;
+	margin-bottom: 5px;
+	margin-left: 150px;
+}
+
+.characterdetails p {
+	margin-left: 150px;
+	font-family: outfit;
+	font-size: 15px;
+	line-height: 1.5;
+}
+
+/* ---- Sessions / audio ---- */
+.audiocontainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	gap: 1.75rem;
+	margin-top: 2rem;
+	width: 100%;
+}
+
+.audiobox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	border: 5px solid black;
+	border-radius: 5px;
+	margin: 0;
+	padding: 1.25rem;
+	text-align: center;
+}
+
+/* Fixed "cover" box above the player — image fills it without blowing up the card */
+.audioimage {
+	width: 100%;
+	max-width: 220px;
+	aspect-ratio: 1 / 1;
+	overflow: hidden;
+	border: 3px solid black;
+	border-radius: 4px;
+	background: rgba(0, 0, 0, 0.15);
+}
+
+.audioimage img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.audiobox audio {
+	width: 100%;
+	max-width: 280px;
+}
+
+.audiodetails h4 {
+	font-family: outfit;
+	font-size: 15px;
+	line-height: 1.5;
+}
+
+/* ---- Footer ---- */
+footer ul {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	gap: 1.5rem 2.5rem;
+	list-style-type: none;
+}
+
+footer li a {
+	text-decoration: none;
+	color: white;
+}
+
+#insta:hover {
+	text-decoration: none;
+	color: rgb(239, 2, 115);
+	transition: 0.5s;
+}
+
+#youtube:hover {
+	text-decoration: none;
+	color: red;
+	transition: 0.5s;
+}
+
+#twitter:hover {
+	text-decoration: none;
+	color: rgb(69, 164, 225);
+	transition: 0.5s;
+}
+
+footer span {
+	font-family: outfit;
+	display: block;
+	padding: 5px;
+	margin-top: 15px;
+	text-align: center;
+	color: white;
+}
+
+footer ul li {
+	margin-left: 0;
+	font-family: outfit;
+}
+
+/* ---- World page image ---- */
+.imageConWorld {
+	width: 100%;
+	max-width: 900px;
+}
+
+.imageWorld img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* ---- Narrow screens ---- */
+@media (max-width: 991.98px) {
+	.banner-image img {
+		height: 160px;
+		min-height: 160px;
+	}
+
+	.parent > article {
+		width: min(960px, calc(100% - 1.5rem));
+	}
+}
+
+@media (max-width: 575.98px) {
+	.charactercontainer,
+	.audiocontainer {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	}
+}
