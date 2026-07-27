@@ -43,49 +43,24 @@ jobs:
             df -h
             echo "=== df -ih ==="
             df -ih
+            AVAILABLE="$(df -Pk "${TARGET}" | awk 'NR==2 {print $4}')"
+            echo "Available KB on target filesystem: ${AVAILABLE}"
+            # Fail early if under ~150MB free (site build is ~78MB + headroom)
+            if [ "${AVAILABLE}" -lt 150000 ]; then
+              echo "::error::Not enough free disk on the VPS (need ~150MB+). Free space and re-run."
+              exit 1
+            fi
             ls -lad "${TARGET}"
 
-      # Plain rsync (no third-party Docker deploy action) for clearer errors
-      - name: Setup SSH key for rsync
-        env:
-          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
-          VPS_SSH_PASSPHRASE: ${{ secrets.VPS_SSH_PASSPHRASE }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-        run: |
-          set -euo pipefail
-          mkdir -p ~/.ssh
-          chmod 700 ~/.ssh
-          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
-
-          # Unlock passphrase-protected key without typing (SSH_ASKPASS)
-          export VPS_SSH_PASSPHRASE
-          ASKPASS="$(mktemp)"
-          printf '%s\n' '#!/bin/sh' 'printf "%s\n" "$VPS_SSH_PASSPHRASE"' > "$ASKPASS"
-          chmod 700 "$ASKPASS"
-
-          eval "$(ssh-agent -s)"
-          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> "$GITHUB_ENV"
-          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> "$GITHUB_ENV"
-
-          DISPLAY=none SSH_ASKPASS="$ASKPASS" SSH_ASKPASS_REQUIRE=force \
-            setsid -w ssh-add ~/.ssh/deploy_key
-          rm -f "$ASKPASS"
-          ssh-add -l
-
-      - name: Rsync dist/ to VPS
-        env:
-          VPS_USER: ${{ secrets.VPS_USER }}
-          VPS_HOST: ${{ secrets.VPS_HOST }}
-          VPS_TARGET_DIR: ${{ secrets.VPS_TARGET_DIR }}
-        run: |
-          set -euo pipefail
-          test -d dist
-          echo "Local dist size:"
-          du -sh dist
-          rsync -avz --delete --stats \
-            -e "ssh -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
-            ./dist/ \
-            "${VPS_USER}@${VPS_HOST}:${VPS_TARGET_DIR}/"
-          echo "Deploy finished."
+      # This action already proved it can unlock VPS_SSH_PASSPHRASE
+      # (earlier run reached rsync; it only failed on "No space left on device").
+      - name: Deploy dist/ to VPS via rsync
+        uses: Burnett01/rsync-deployments@8.0.0
+        with:
+          switches: -avzr --delete
+          path: dist/
+          remote_path: ${{ secrets.VPS_TARGET_DIR }}/
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: ${{ secrets.VPS_USER }}
+          remote_key: ${{ secrets.VPS_SSH_KEY }}
+          remote_key_pass: ${{ secrets.VPS_SSH_PASSPHRASE }}
