@@ -29,10 +29,8 @@ const { Content } = await render(character);
 
 		{
 			character.data.image && (
-				<div class="imageContainer">
-					<div class="imageSquare">
-						<img src={character.data.image} alt={character.data.name} />
-					</div>
+				<div class="profile-image">
+					<img src={character.data.image} alt={character.data.name} />
 				</div>
 			)
 		}

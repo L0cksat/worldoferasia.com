@@ -2,13 +2,6 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-/**
- * Mentorship notes (why getCollection('characters') failed before):
- * 1. This file must live at src/content.config.ts (not project root).
- * 2. The glob base must be './src/content/characters' (you had '.src/...').
- * 3. defineCollection is imported from 'astro:content'.
- * 4. The folder src/content/characters/ must exist (even before you fill every entry).
- */
 const characters = defineCollection({
 	loader: glob({
 		base: './src/content/characters',
@@ -28,4 +21,21 @@ const characters = defineCollection({
 	}),
 });
 
-export const collections = { characters };
+/**
+ * Scrolls: keep frontmatter small (title + image).
+ * Long lore goes in the Markdown body below --- (not as text/textSecond/...).
+ * Invalid YAML (e.g. JS commas after values) makes content sync fail —
+ * then getCollection('scrolls') looks like the collection "doesn't exist".
+ */
+const scrolls = defineCollection({
+	loader: glob({
+		base: './src/content/scrolls',
+		pattern: '**/*.{md,mdx}',
+	}),
+	schema: z.object({
+		title: z.string(),
+		image: z.string().optional(),
+	}),
+});
+
+export const collections = { characters, scrolls };

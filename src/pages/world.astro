@@ -1,14 +1,40 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const scrolls = await getCollection('scrolls');
 ---
 
-<BaseLayout title="World of Erasia - World" description="Lore, countries, and world information for Earisia.">
-	<article>
+<BaseLayout
+	title="World of Erasia - World"
+	description="Lore, countries, and world information for Earisia."
+>
+	<article class="worldText">
 		<div class="imageConWorld">
 			<div class="imageWorld">
 				<img src="/img/chronicon_arcanum_banner_1.png" alt="World banner" />
 			</div>
 		</div>
-		<h1>This is the World page.</h1>
+		<h1>Chronicon Arcanum</h1>
+		<div class="scrollcontainer">
+			{
+				scrolls.map((scroll) => (
+					<a href={`/scrolls/${scroll.id}`} class="scrollbox-link">
+						<div class="scrollbox">
+							{scroll.data.image && (
+								<img
+									src={scroll.data.image}
+									alt={`${scroll.data.title} image`}
+									class="scrollimage"
+								/>
+							)}
+							<div class="scrolldetails">
+								<h4>{scroll.data.title}</h4>
+							</div>
+						</div>
+					</a>
+				))
+			}
+		</div>
 	</article>
 </BaseLayout>

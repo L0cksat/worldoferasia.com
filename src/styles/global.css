@@ -140,6 +140,75 @@ article h3 {
 	object-fit: contain;
 }
 
+/* Home: two equal campaign tiles side by side */
+.parent > article.home-article {
+	/* Room for two 500px tiles + gap inside the panel */
+	width: min(1120px, calc(100% - 1.5rem));
+}
+
+.home-campaigns {
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 1.5rem;
+	width: 100%;
+	margin: 1rem 0 1.25rem;
+}
+
+.home-campaign-link {
+	display: block;
+	flex: 0 0 auto;
+	text-decoration: none;
+	color: inherit;
+}
+
+.home-campaign-frame {
+	width: 500px;
+	max-width: 100%;
+	margin: 0;
+	text-align: center;
+}
+
+.home-campaign-frame img {
+	display: block;
+	width: 500px;
+	max-width: 100%;
+	height: 400px;
+	object-fit: cover;
+	object-position: center;
+	border: 3px solid black;
+	border-radius: 4px;
+	background: rgba(0, 0, 0, 0.1);
+}
+
+.home-campaign-frame figcaption {
+	font-family: DnD2;
+	font-size: 14px;
+	margin-top: 0.5rem;
+}
+
+.home-campaign-link:hover .home-campaign-frame img {
+	opacity: 0.92;
+	transition: opacity 0.25s ease;
+}
+
+@media (max-width: 1100px) {
+	.home-campaigns {
+		flex-wrap: wrap;
+	}
+
+	.home-campaign-frame,
+	.home-campaign-frame img {
+		width: min(500px, 100%);
+	}
+
+	.home-campaign-frame img {
+		height: auto;
+		aspect-ratio: 500 / 400;
+	}
+}
+
 article dl {
 	width: 100%;
 	max-width: 42rem;
@@ -201,6 +270,26 @@ a.characterbox-link:hover .characterbox {
 	height: 180px;
 	object-fit: cover;
 	border-radius: 3px;
+}
+
+/* Profile pages: fixed frame so every portrait is the same size */
+.profile-image {
+	width: 220px;
+	height: 280px;
+	margin: 0.75rem auto 1rem;
+	overflow: hidden;
+	border: 3px solid black;
+	border-radius: 4px;
+	background: rgba(0, 0, 0, 0.12);
+	flex-shrink: 0;
+}
+
+.profile-image img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center top;
 }
 
 .characterdetails h4 {
@@ -325,6 +414,94 @@ footer ul li {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+}
+
+
+.worldText p {
+	text-align: left;
+	margin-bottom: 4px;
+	margin-top: 5px;
+}
+
+.worldText h1 {
+	margin-top: 5px;
+}
+
+.worldText h2 {
+	font-family: DnD2;
+	font-style: italic;
+}
+
+/* ---- Scrolls (World page list) ---- */
+.scrollcontainer {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	gap: 1.75rem;
+	margin-top: 1.5rem;
+	width: 100%;
+}
+
+.scrollbox {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.75rem;
+	border: 5px solid black;
+	border-radius: 5px;
+	padding: 1.25rem;
+	text-align: center;
+}
+
+a.scrollbox-link {
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+
+a.scrollbox-link:hover .scrollbox {
+	background-color: rgba(0, 0, 0, 0.06);
+	transition: background-color 0.3s ease;
+}
+
+.scrollimage {
+	width: 160px;
+	height: 200px;
+	object-fit: cover;
+	border: 3px solid black;
+	border-radius: 3px;
+}
+
+.scrolldetails h4 {
+	font-family: DnD2;
+	font-size: 18px;
+}
+
+.scroll-body {
+	width: 100%;
+	max-width: 42rem;
+	text-align: left;
+	font-family: outfit;
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+/* Tailwind preflight sets p { margin: 0 } — restore visible paragraph gaps */
+.scroll-body p {
+	margin: 0 0 1rem;
+}
+
+.scroll-body blockquote {
+	margin: 0 0 1.25rem;
+	padding-left: 0.75rem;
+	border-left: 3px solid rgba(0, 0, 0, 0.35);
+	font-style: italic;
+}
+
+.scroll-body h2 {
+	font-family: DnD2;
+	font-size: 16px;
+	margin: 1.25rem 0 0.5rem;
+	text-align: center;
 }
 
 /* ---- Narrow screens ---- */

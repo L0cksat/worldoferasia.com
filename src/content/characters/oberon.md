@@ -7,5 +7,5 @@ sex: "Male"
 birthPlace: "Shaedril, Velmorae Province, Kingdom of Kael'rathis"
 pcClass: "Bard"
 profession: "Travelling Bard"
-image: "/img/Malikel.webp"
+image: "/img/Oberon1.webp"
 ---

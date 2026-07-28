@@ -2,14 +2,31 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title='World of Earisia'>
-	<article>
+<BaseLayout title="World of Earisia">
+		<article class="home-article">
 		<h1>Welcome to the Official "World of Erasia" Webpage!</h1>
-		<div class="imageContainer">
-			<div class="imageSquare">
-				<img src="/img/erasia_square.png" alt="A square image of Erasia" />
-			</div>
+
+		<div class="home-campaigns">
+			<a href="/characters" class="home-campaign-link" title="World of Erasia">
+				<figure class="home-campaign-frame">
+					<img
+						src="/img/The Heroes 3.webp"
+						alt="The heroes of Erasia"
+					/>
+					<figcaption>World of Erasia</figcaption>
+				</figure>
+			</a>
+			<a href="#" class="home-campaign-link" title="World of Alabaris" id="menuButton5">
+				<figure class="home-campaign-frame">
+					<img
+						src="/img/The Auric Horizon Team 2.webp"
+						alt="The heroes of Alabaris — Auric Horizon"
+					/>
+					<figcaption>World of Alabaris</figcaption>
+				</figure>
+			</a>
 		</div>
+
 		<p class="mainPara">
 			Welcome one, and welcome all! This is a special place for us as it is a long standing
 			project that I have had, and I have managed to gather together a group of lovely
@@ -37,6 +54,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 				and post NPCs, lore events, countries and general information about the world on
 				the <i>"World"</i> page. You can also listen to the sessions themselves (I have the
 				first five uploaded) on the <i>"Sessions"</i> page.
+			</dd>
+			<dt>Disclaimer</dt>
+			<dd>
+				<i
+					>All images are created by AI, these images are placeholders until we can afford
+					to commission a human artist. We understand the hyprocracy but we are full
+					supporters of real, actual art. Thank you.</i
+				>
 			</dd>
 		</dl>
 	</article>

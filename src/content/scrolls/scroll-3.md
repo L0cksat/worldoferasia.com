@@ -1,0 +1,23 @@
+---
+title: "Scroll III"
+image: "/img/Scroll3.webp"
+---
+
+> *"To measure eternity is folly, yet the wise may sketch shadows of the truth. Thus, let us reckon the Ages, as the Shards themselves unfolded them."*
+>
+> **— Chronicon Arcanum, Scroll III, inscribed by Elandor the Dawn-Seer, First Chronicler of the Temples at the cusp of the Sixth Age.**
+
+
+Harken a final time, o seekers of the veiled past! I am Elandor, humble scribe of the Dawn Temples, who hath pursued the embers unto their dying glow, unraveling the threads of innovation and contention that mark our present veil. In this third scroll, I chronicle the Seventh Age—the Age of the Mortal Gods—and the eras that followed, drawn from the songs of Auramyrr and the forged annals of the Grand Forge. Here unfold the Industrial Era, that roar of steam and arcane thunder, and the Contention Era, wherein heroes rose like comets against encroaching shadows. Attend, for these are the breaths of defiance, where mortals, crowned by their own valor, grappled with the fruits of their ambition amid the gods’ fading echoes.
+
+
+**The Seventh Age: The Age of the Mortal Gods (~700 years ago – present)** Lo, the pinnacle of mortal glory! In that dark hour of Gogran’s unleashing, the Shimmerforce—Kaelion the paladin, Liriel the ranger, and Thorgrim the druid—sacrificed all to reseal the demon, their lives woven into the Regnum’s fabric. The Six bowed in awe, crowning them the Mortal Gods, throned beside Jehion as eternal guardians[cite: 2]. This age is ours, fragile yet defiant: mortals ascend, Shimmerism preaches unity against tyranny, and the Three shimmer against the encroaching void. Yet whispers persist—Gogran strains, and the Earthshaper stirs when balance falters. Will this era endure, or shatter like those before?
+
+
+From the ashes of the Expansion Era rose the Industrial Era, a revolution sparked by gnomish ingenuity and dwarven craft in the southern-eastern wilds. The Technocratic Republic of Gnomeregia, haven of the gnomes, harnessed steam and arcane crystals to birth wonders: the Ironclad Express, first of the steam-arcane trains thundering upon the Trans-Earisian Railway; factories like the Grand Forge of Cogspire, where automated lines churned goods from textiles to armaments; and steam-arcane tanks, ironclad behemoths that reshaped warfare. Dwarves, split yet allied in labor, provided metallurgy and stonework, while rich veins of coal, iron, and crystals fueled this blaze. Urbanization swelled cities like Cogspire, Weshal, and Khazrondor into hives of commerce, birthing a middle class of engineers and merchants. Cultural exchange flourished via rails and airships, blending arts and ideas, yet tensions simmered: Shimmerists hailed this as mortal triumph, birthing reform movements for ethical progress; Jehionians decried it as a desecration of natural order, their zealots sabotaging works in futile resistance, hastening their exile to remote enclaves. Pollution scarred the lands, inequality festered, and the divide between industrialized realms and traditional societies deepened, setting the stage for unrest.
+
+
+As the Industrial Era waned, the Contention Era dawned—a span of heroes and shadows, wherein the Drakonar Empire’s ambitions clashed with the fragile peace. In its early throes, the legendary Play Erwan, human paladin of Shimmerism, joined by Bixby "Boom-Boom" Guzzlewick, gnomish alchemist of explosive renown, and Zlurp "The Sticky Shadow" Glopfoot, goblin rogue of unerring cunning, rose as beacons of valor. Commissioned by Kargosh-Khan Tharok Bloodmaw of Gorr’Vatra, they thwarted the Ice Dragons’ invasion at Thrum’arakh, battling through frozen wastes to confront Vyrnax the Unbroken. Erwan’s radiant Everbright pierced the wyrm’s scales, Bixby’s alchemical fires melted its frost, and Zlurp’s sticky traps grounded its might; though victorious, they perished upon the field, their bodies entombed in secret by grateful orcs, their relics inspiring quests across Earisia. Bards sing of their earlier feats: guarding shadowed caravans, slaying the Beast of Boghdahn, quelling the Inferno of Voltanook, and forging the Alliance of the Frozen North. Yet contention lingers—Gogran’s seals weaken, Jehionian whispers stir, and the Eye of Magalesh’s halves tempt the ambitious. Shimmerhold’s legions crusade against heresy, while dwarven clans, ever schismed, guard their holds against encroaching threats.
+
+
+Thus ends this third scroll, etched in the enduring light of Drokath’s stone. May these words arm thee against the void, o reader, as they have fortified my watch. For in knowing our ascents and perils, we honor the Mortal Gods—and perhaps, in time, etch our own shards into eternity.

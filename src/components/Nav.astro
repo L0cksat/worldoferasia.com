@@ -5,7 +5,6 @@ const links = [
 	{ href: '/characters', label: 'Characters' },
 	{ href: '/sessions', label: 'Sessions' },
 	{ href: '/contact', label: 'Contact' },
-	{ href: '#', label: 'The World of Alabaris', id: 'menuButton5' },
 ];
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -23,7 +22,6 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 					<li class="flex-none whitespace-nowrap rounded-[5px] bg-black text-center transition-colors duration-500 hover:bg-earisia-nav-hover">
 						<a
 							href={link.href}
-							id={link.id}
 							class:list={[
 								'font-dnd2 inline-block whitespace-nowrap px-4 text-[clamp(11px,1.15vw,15px)] leading-[50px] text-white no-underline max-md:px-3 max-md:leading-[44px] max-md:text-xs',
 								{ 'underline decoration-2 underline-offset-4': isActive },
