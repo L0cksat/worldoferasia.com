@@ -26,6 +26,13 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
+      - name: Pack dist into site.tar.gz
+        run: |
+          set -euo pipefail
+          tar -czf site.tar.gz -C dist .
+          ls -lh site.tar.gz
+
+      # Show EVERY relevant filesystem — /var/www free does NOT mean / or /tmp is free
       - name: Probe VPS disk + target
         uses: appleboy/ssh-action@v1.2.0
         with:
@@ -38,29 +45,44 @@ jobs:
             TARGET="${{ secrets.VPS_TARGET_DIR }}"
             echo "TARGET=${TARGET}"
             mkdir -p "${TARGET}"
+            echo "=== mounts for key paths ==="
+            df -h / /tmp /var /var/www /var/www/html "${TARGET}" 2>/dev/null || df -h
+            echo "=== inodes ==="
+            df -ih / /tmp /var "${TARGET}" 2>/dev/null || df -ih
+            echo "=== which filesystem owns TARGET? ==="
+            df -h "${TARGET}"
             touch "${TARGET}/.deploy-write-test" && rm -f "${TARGET}/.deploy-write-test"
-            echo "=== df -h ==="
-            df -h
-            echo "=== df -ih ==="
-            df -ih
-            AVAILABLE="$(df -Pk "${TARGET}" | awk 'NR==2 {print $4}')"
-            echo "Available KB on target filesystem: ${AVAILABLE}"
-            # Fail early if under ~150MB free (site build is ~78MB + headroom)
-            if [ "${AVAILABLE}" -lt 150000 ]; then
-              echo "::error::Not enough free disk on the VPS (need ~150MB+). Free space and re-run."
-              exit 1
-            fi
-            ls -lad "${TARGET}"
 
-      # This action already proved it can unlock VPS_SSH_PASSPHRASE
-      # (earlier run reached rsync; it only failed on "No space left on device").
-      - name: Deploy dist/ to VPS via rsync
-        uses: Burnett01/rsync-deployments@8.0.0
+      # Upload ONE file into TARGET (the place you confirmed has free space),
+      # then extract there. Avoids Burnett Docker action + avoids filling /tmp.
+      - name: Upload site.tar.gz to VPS target
+        uses: appleboy/scp-action@v0.1.7
         with:
-          switches: -avzr --delete
-          path: dist/
-          remote_path: ${{ secrets.VPS_TARGET_DIR }}/
-          remote_host: ${{ secrets.VPS_HOST }}
-          remote_user: ${{ secrets.VPS_USER }}
-          remote_key: ${{ secrets.VPS_SSH_KEY }}
-          remote_key_pass: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          source: site.tar.gz
+          target: ${{ secrets.VPS_TARGET_DIR }}
+          overwrite: true
+
+      - name: Extract site on VPS
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          script: |
+            set -euo pipefail
+            TARGET="${{ secrets.VPS_TARGET_DIR }}"
+            cd "${TARGET}"
+            test -f site.tar.gz
+            # Clear old site files but keep the directory + the new tarball
+            find . -mindepth 1 ! -name 'site.tar.gz' -exec rm -rf {} +
+            tar -xzf site.tar.gz
+            rm -f site.tar.gz
+            echo "=== deployed files (top) ==="
+            ls -la
+            echo "=== disk after deploy ==="
+            df -h "${TARGET}"
