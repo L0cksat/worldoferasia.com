@@ -1,46 +1,12 @@
 ---
-import { getCollection, render } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
 	const scrolls = await getCollection('scrolls');
-
 	return scrolls.map((scroll) => ({
 		params: { slug: scroll.id },
-		props: { scroll },
 	}));
 }
 
-interface Props {
-	scroll: CollectionEntry<'scrolls'>;
-}
-
-const { scroll } = Astro.props;
-const { Content } = await render(scroll);
+return Astro.redirect(`/erasia/scrolls/${Astro.params.slug}`);
 ---
-
-<BaseLayout
-	title={`${scroll.data.title} | World of Earisia`}
-	description={`Lore scroll: ${scroll.data.title}`}
->
-	<article class="character-profile">
-		<h1>{scroll.data.title}</h1>
-
-		{
-			scroll.data.image && (
-				<div class="profile-image">
-					<img src={scroll.data.image} alt={scroll.data.title} />
-				</div>
-			)
-		}
-
-		<div class="character-body scroll-body">
-			<Content />
-		</div>
-
-		<p class="mainPara">
-			<a href="/world">← Back to World</a>
-		</p>
-	</article>
-</BaseLayout>

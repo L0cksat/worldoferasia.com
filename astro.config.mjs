@@ -7,4 +7,9 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
+	redirects: {
+		'/world': '/erasia/world',
+		'/characters': '/erasia/characters',
+		'/sessions': '/erasia/sessions',
+	},
 });

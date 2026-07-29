@@ -1,91 +1,12 @@
 ---
-import { getCollection, render } from 'astro:content';
-import type { CollectionEntry } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
 	const characters = await getCollection('characters');
-
 	return characters.map((character) => ({
 		params: { slug: character.id },
-		props: { character },
 	}));
 }
 
-interface Props {
-	character: CollectionEntry<'characters'>;
-}
-
-const { character } = Astro.props;
-const { Content } = await render(character);
+return Astro.redirect(`/erasia/characters/${Astro.params.slug}`);
 ---
-
-<BaseLayout
-	title={`${character.data.name} | World of Earisia`}
-	description={`Character profile for ${character.data.name}.`}
->
-	<article class="character-profile">
-		<h1>{character.data.name}</h1>
-
-		{
-			character.data.image && (
-				<div class="profile-image">
-					<img src={character.data.image} alt={character.data.name} />
-				</div>
-			)
-		}
-
-		{
-			character.data.playedBy && (
-				<p class="mainPara">Played by {character.data.playedBy}.</p>
-			)
-		}
-
-		<dl>
-			{character.data.race && (
-				<>
-					<dt>Race</dt>
-					<dd>{character.data.race}</dd>
-				</>
-			)}
-			{character.data.pcClass && (
-				<>
-					<dt>Class</dt>
-					<dd>{character.data.pcClass}</dd>
-				</>
-			)}
-			{character.data.profession && (
-				<>
-					<dt>Profession</dt>
-					<dd>{character.data.profession}</dd>
-				</>
-			)}
-			{character.data.birthPlace && (
-				<>
-					<dt>Birth place</dt>
-					<dd>{character.data.birthPlace}</dd>
-				</>
-			)}
-			{typeof character.data.age === 'number' && character.data.age > 0 && (
-				<>
-					<dt>Age</dt>
-					<dd>{character.data.age}</dd>
-				</>
-			)}
-			{character.data.sex && (
-				<>
-					<dt>Sex</dt>
-					<dd>{character.data.sex}</dd>
-				</>
-			)}
-		</dl>
-
-		<div class="character-body">
-			<Content />
-		</div>
-
-		<p class="mainPara">
-			<a href="/characters">← Back to characters</a>
-		</p>
-	</article>
-</BaseLayout>

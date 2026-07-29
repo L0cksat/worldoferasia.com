@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const characters = (await getCollection('characters')).sort((a, b) =>
@@ -9,7 +9,8 @@ const characters = (await getCollection('characters')).sort((a, b) =>
 
 <BaseLayout
 	title="World of Erasia - Characters"
-	description="Player characters of the World of Earisia campaign."
+	description="Player characters of the World of Erasia campaign."
+	navVariant="erasia"
 >
 	<article>
 		<h1>This is the Characters page.</h1>
@@ -17,7 +18,7 @@ const characters = (await getCollection('characters')).sort((a, b) =>
 		<div class="charactercontainer">
 			{
 				characters.map((character) => (
-					<a href={`/characters/${character.id}`} class="characterbox-link">
+					<a href={`/erasia/characters/${character.id}`} class="characterbox-link">
 						<div class="characterbox">
 							{character.data.image && (
 								<img

@@ -1,5 +1,5 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
 const scrolls = await getCollection('scrolls');
@@ -7,7 +7,8 @@ const scrolls = await getCollection('scrolls');
 
 <BaseLayout
 	title="World of Erasia - World"
-	description="Lore, countries, and world information for Earisia."
+	description="Lore, countries, and world information for Erasia."
+	navVariant="erasia"
 >
 	<article class="worldText">
 		<div class="imageConWorld">
@@ -19,7 +20,7 @@ const scrolls = await getCollection('scrolls');
 		<div class="scrollcontainer">
 			{
 				scrolls.map((scroll) => (
-					<a href={`/scrolls/${scroll.id}`} class="scrollbox-link">
+					<a href={`/erasia/scrolls/${scroll.id}`} class="scrollbox-link">
 						<div class="scrollbox">
 							{scroll.data.image && (
 								<img

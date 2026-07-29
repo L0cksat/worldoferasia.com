@@ -7,11 +7,13 @@ import Footer from '../components/Footer.astro';
 interface Props {
 	title: string;
 	description?: string;
+	navVariant?: 'home' | 'erasia' | 'alabaris';
 }
 
 const {
 	title,
 	description = 'The official homepage for the World of Earisia D&D campaign.',
+	navVariant = 'home',
 } = Astro.props;
 ---
 
@@ -32,7 +34,7 @@ const {
 	<body>
 		<div class="parent">
 			<Banner />
-			<Nav />
+			<Nav variant={navVariant} />
 			<slot />
 			<Footer />
 		</div>

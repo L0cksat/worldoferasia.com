@@ -1,12 +1,30 @@
 ---
-const links = [
-	{ href: '/', label: 'Home' },
-	{ href: '/world', label: 'World' },
-	{ href: '/characters', label: 'Characters' },
-	{ href: '/sessions', label: 'Sessions' },
-	{ href: '/contact', label: 'Contact' },
-];
+interface Props {
+	variant?: 'home' | 'erasia' | 'alabaris';
+}
 
+const { variant = 'home' } = Astro.props;
+
+const navByVariant = {
+	home: [
+		{ href: '/', label: 'Home' },
+		{ href: '/contact', label: 'Contact' },
+	],
+	erasia: [
+		{ href: '/', label: 'Home' },
+		{ href: '/erasia/world', label: 'World' },
+		{ href: '/erasia/characters', label: 'Characters' },
+		{ href: '/erasia/sessions', label: 'Sessions' },
+	],
+	alabaris: [
+		{ href: '/', label: 'Home' },
+		{ href: '/alabaris/world', label: 'World' },
+		{ href: '/alabaris/characters', label: 'Characters' },
+		{ href: '/alabaris/sessions', label: 'Sessions' },
+	],
+} as const;
+
+const links = navByVariant[variant];
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 
@@ -17,7 +35,10 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 		{
 			links.map((link) => {
 				const normalized = link.href.replace(/\/$/, '') || '/';
-				const isActive = pathname === normalized;
+				const isActive =
+					normalized === '/'
+						? pathname === '/'
+						: pathname === normalized || pathname.startsWith(`${normalized}/`);
 				return (
 					<li class="flex-none whitespace-nowrap rounded-[5px] bg-black text-center transition-colors duration-500 hover:bg-earisia-nav-hover">
 						<a
