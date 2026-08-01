@@ -1,5 +1,6 @@
 ---
 name: "Arya Tharithil"
+campaign: "erasia"
 playedBy: "Carla"
 age: 100
 race: "Moon Elf (Selathari)"

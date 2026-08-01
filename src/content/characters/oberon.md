@@ -1,5 +1,6 @@
 ---
 name: "Oberon"
+campaign: "erasia"
 playedBy: "Adrián"
 age: 33
 race: "Tiefling"

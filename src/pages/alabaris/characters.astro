@@ -1,5 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const characters = (await getCollection('characters', ({data}) => data.campaign === 'alabaris',)).sort((a, b) =>
+	a.data.name.localeCompare(b.data.name),
+);
 ---
 
 <BaseLayout
@@ -8,7 +13,31 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	navVariant="alabaris"
 >
 	<article>
-		<h1>Alabaris — Characters</h1>
-		<p class="mainPara">Coming soon. Character profiles for Alabaris will appear here.</p>
+		<h1>This is the Characters page.</h1>
+		<h3>These are the members of the Auric Horizon Corporation</h3>
+		<h3>In alphabetical order:</h3>
+		<div class="charactercontainer">
+			{
+				characters.map((character) => (
+					<a href={`/alabaris/characters/${character.id}`} class="characterbox-link">
+						<div class="characterbox">
+							{character.data.image && (
+								<img
+									src={character.data.image}
+									alt={`Image of ${character.data.name}`}
+									class="charimage"
+								/>
+							)}
+							<div class="characterdetails">
+								<h4>{character.data.name}</h4>
+								{character.data.playedBy && (
+									<p>Played by {character.data.playedBy}.</p>
+								)}
+							</div>
+						</div>
+					</a>
+				))
+			}
+		</div>
 	</article>
 </BaseLayout>

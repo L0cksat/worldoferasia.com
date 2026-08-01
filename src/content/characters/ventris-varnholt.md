@@ -1,5 +1,6 @@
 ---
 name: "Ventris Varnholt"
+campaign: "erasia"
 playedBy: "Elena"
 age: 30
 race: "Warforged (Soul in a high quality armor)"

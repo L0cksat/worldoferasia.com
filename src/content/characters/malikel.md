@@ -1,5 +1,6 @@
 ---
 name: "Malikel 'Mali'"
+campaign: "erasia"
 playedBy: "Luccia"
 age: 24
 race: "Tiefling"

@@ -1,5 +1,6 @@
 ---
 name: "Kravix"
+campaign: "erasia"
 playedBy: "Jorge"
 age: 100
 race: "Skeleton"

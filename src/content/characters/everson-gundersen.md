@@ -1,5 +1,6 @@
 ---
 name: "Everson Olsen Gundersen"
+campaign: "erasia"
 playedBy: "Alberto"
 age: 22
 race: "Mutated Human"

@@ -1,5 +1,6 @@
 ---
 name: "Timmy Pondo"
+campaign: "erasia"
 playedBy: "Ashley"
 age: 74
 race: "Wood Elf (Slyvari)"

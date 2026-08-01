@@ -8,6 +8,7 @@ const characters = defineCollection({
 		pattern: '**/*.{md,mdx}',
 	}),
 	schema: z.object({
+		campaign: z.enum(['erasia', 'alabaris']),
 		name: z.string(),
 		playedBy: z.string().optional(),
 		age: z.number().optional(),
@@ -33,9 +34,24 @@ const scrolls = defineCollection({
 		pattern: '**/*.{md,mdx}',
 	}),
 	schema: z.object({
+		campaign: z.enum(['erasia', 'alabaris']),
 		title: z.string(),
 		image: z.string().optional(),
 	}),
 });
 
-export const collections = { characters, scrolls };
+const corporations = defineCollection({
+	loader: glob({
+		base: './src/content/corporations',
+		pattern: '**/*.{md,mdx}',
+	}),
+	schema: z.object({
+		campaign: z.enum(['erasia', 'alabaris']),
+		name: z.string(),
+		uniform: z.string().optional(),
+		emblem: z.string().optional(),
+		image: z.string().optional(),
+	})
+})
+
+export const collections = { characters, scrolls, corporations };

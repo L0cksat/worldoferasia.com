@@ -1,5 +1,6 @@
 ---
 name: "Sutha"
+campaign: "erasia"
 playedBy: "Marina (May)"
 age: 25
 race: "Human, Half-Orc (Albino skinned)"

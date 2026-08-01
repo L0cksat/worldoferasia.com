@@ -1,5 +1,23 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const episodes = [
+	{
+		title: 'Episode 1: The Journey to the Wilds begins.',
+		src: 'https://dl.dropboxusercontent.com/scl/fi/0asnrsw351b6rtwsug29o/14_dnd_session_14_WestMarch_1_13-09-2025.mp3?rlkey=1r7utcg1pku9f9wdkazamuo00&st=mb2vh7h8&dl=0',
+		img: '/img/Session 1 (session 14).webp',
+	},
+	{
+		title: 'Episode 2: On the hunt for the "Flobo".',
+		src: 'https://dl.dropboxusercontent.com/scl/fi/b4yp4nm1hb0xdk876k8xs/16_dnd_session_16_WestMarch_2_19-10-2025.mp3?rlkey=cm9ivawirrwocfuuaxqm954o5&st=xgcs0v6o&dl=0',
+		img: '/img/Session 2(Session 16).webp',
+	},
+	{
+		title: 'Episode 3: The Pepe games, and the mysterious dungeon',
+		src: 'https://dl.dropboxusercontent.com/scl/fi/oue89nj03ztph1kw5c7f4/3_dnd_session_3_02-03-2025.mp3?rlkey=tx3kdiigawyjs6uahp9usht3y',
+		img: '/img/Session 3(session 20).webp',
+	},
+];
 ---
 
 <BaseLayout
@@ -8,7 +26,27 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 	navVariant="alabaris"
 >
 	<article>
-		<h1>Alabaris — Sessions</h1>
-		<p class="mainPara">Coming soon. Session recordings for Alabaris will appear here.</p>
+		<h1>This is the Alabaris Sessions page.</h1>
+		<h3>Get up to date on the lore and the story of our adventurers below:</h3>
+		<h3>Disclaimer: All Episodes are in Spanish.</h3>
+		<div class="audiocontainer">
+			{
+				episodes.map((episode) => (
+					<div class="audiobox">
+						{episode.img && (
+							<div class="audioimage">
+								<img src={episode.img} alt={`Cover for ${episode.title}`} />
+							</div>
+						)}
+						<audio controls>
+							<source src={episode.src} type="audio/mpeg" />
+						</audio>
+						<div class="audiodetails">
+							<h4>{episode.title}</h4>
+						</div>
+					</div>
+				))
+			}
+		</div>
 	</article>
 </BaseLayout>

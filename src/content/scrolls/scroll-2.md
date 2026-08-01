@@ -1,4 +1,5 @@
 ---
+campaign: "erasia"
 title: "Scroll II"
 image: "/img/Scroll2.webp"
 ---

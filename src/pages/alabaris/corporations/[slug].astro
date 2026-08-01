@@ -1,0 +1,61 @@
+---
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+    const corporations = await getCollection('corporations')
+
+    return corporations.map((corporation) => ({
+        params: { slug: corporation.id },
+        props: { corporation },
+    }))
+}
+
+interface Props {
+    corporation: CollectionEntry<'corporations'>
+}
+
+const { corporation } = Astro.props
+const { Content } = await render(corporation)
+---
+
+<BaseLayout 
+    title={`${corporation.data.name} | World of Alabaris`}
+	description={`Lore scroll: ${corporation.data.name}`}
+	navVariant="alabaris"
+    >
+    <article class="character-profile">
+        <h1>{corporation.data.name}</h1>
+        {
+            corporation.data.image && (
+                <div class="profile-image">
+                    <img src={corporation.data.image} alt={`${corporation.data.name} emblem`}>
+                </div>
+            )
+        }
+        <dl>
+			{corporation.data.uniform && (
+				<>
+					<dt>Uniform</dt>
+					<dd>{corporation.data.uniform}</dd>
+				</>
+			)}
+			{corporation.data.emblem && (
+				<>
+					<dt>Emblem</dt>
+					<dd>{corporation.data.emblem}</dd>
+				</>
+			)}
+		</dl>
+
+
+        <div class="character-body scroll-body">
+			<Content />
+		</div>
+
+        <p class="mainPara">
+			<a href="/alabaris/world">← Back to World</a>
+		</p>
+    </article>
+</BaseLayout>

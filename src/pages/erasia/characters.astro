@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 
-const characters = (await getCollection('characters')).sort((a, b) =>
+const characters = (await getCollection('characters', ({data}) => data.campaign === 'erasia',)).sort((a, b) =>
 	a.data.name.localeCompare(b.data.name),
 );
 ---

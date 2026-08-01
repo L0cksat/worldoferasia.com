@@ -1,5 +1,6 @@
 ---
 name: "Victal Stornveill"
+campaign: "erasia"
 playedBy: "Álex"
 age: 47
 race: "Human"

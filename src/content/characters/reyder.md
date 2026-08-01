@@ -1,5 +1,6 @@
 ---
 name: "Reyder"
+campaign: "erasia"
 playedBy: "Dani"
 age: 35
 race: "Human, Half-Dragonborn (Draconian)"

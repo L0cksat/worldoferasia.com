@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "notion-token": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "dotenv-cli",
+        "-e",
+        ".env",
+        "--",
+        "npx",
+        "-y",
+        "@notionhq/notion-mcp-server"
+      ]
+    }
+  }
+}
