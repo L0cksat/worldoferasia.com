@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection  } from 'astro:content';
 
 const corporations = await getCollection('corporations')
+const diaries = await getCollection('diaries')
 ---
 
 <BaseLayout
@@ -11,12 +12,29 @@ const corporations = await getCollection('corporations')
 	navVariant="alabaris"
 >
 	<article class="worldText">
-		<h1>Alabaris — World</h1>
+		<h1>The World of Alabaris</h1>
 		<h3>Fortress Atoria Diaries</h3>
 		<div class="scrollcontainer">
-			<p class="mainPara">Coming soon. Lore scrolls and world entries for Alabaris will appear here.</p>
+			{
+				diaries.map((diary) => (
+					<a href={`/alabaris/diaries/${diary.id}`} class="scrollbox-link">
+						<div class="scrollbox">
+							{diary.data.image && (
+								<img 
+								src={diary.data.image} 
+								alt={diary.data.title} 
+								class="scrollimage"
+								/>
+							)}
+						</div>
+						<div class="scrolldetails">
+							<h4>{diary.data.title}</h4>
+						</div>
+					</a>
+				))
+			}
 		</div>
-		<h3>Corporations</h3>
+		<h3 class="worldheader3">Corporations</h3>
 		<div class="scrollcontainer">
 			{
 				corporations.map((corporation) => (

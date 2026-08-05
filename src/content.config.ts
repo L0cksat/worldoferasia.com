@@ -54,4 +54,17 @@ const corporations = defineCollection({
 	})
 })
 
-export const collections = { characters, scrolls, corporations };
+const diaries = defineCollection({
+	loader: glob({
+		base: './src/content/diaries',
+		pattern: '**/*.{md,mdx}',
+	}),
+	schema: z.object({
+		campaign: z.enum(['erasia', 'alabaris']),
+		title: z.string(),
+		date: z.string().optional(),
+		image: z.string().optional(),
+	})
+})
+
+export const collections = { characters, scrolls, corporations, diaries };

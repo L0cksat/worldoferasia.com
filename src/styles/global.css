@@ -437,6 +437,10 @@ footer ul li {
 	font-style: italic;
 }
 
+.worldheader3 {
+	margin-top: 30px;
+}
+
 /* ---- Scrolls (World page list) ---- */
 .scrollcontainer {
 	display: grid;
