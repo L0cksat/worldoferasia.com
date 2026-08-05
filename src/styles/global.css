@@ -239,7 +239,8 @@ article dl dd {
 	font-family: DnD2;
 	font-size: 10px;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+	/* min(100%, …) prevents fixed minmax from forcing horizontal overflow */
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr));
 	gap: 1.75rem;
 	margin-top: 1.5rem;
 	width: 100%;
@@ -275,11 +276,19 @@ a.characterbox-link:hover .characterbox {
 	height: 180px;
 	object-fit: cover;
 	border-radius: 3px;
+	flex-shrink: 0;
+}
+
+.characterdetails {
+	flex: 1;
+	min-width: 0;
+	width: 100%;
 }
 
 /* Profile pages: fixed frame so every portrait is the same size */
 .profile-image {
 	width: 220px;
+	max-width: 100%;
 	height: 280px;
 	margin: 0.75rem auto 1rem;
 	overflow: hidden;
@@ -302,20 +311,32 @@ a.characterbox-link:hover .characterbox {
 	font-family: DnD2;
 	font-size: 18px;
 	margin-bottom: 5px;
-	margin-left: 150px;
 }
 
 .characterdetails p {
-	margin-left: 150px;
+	text-align: center;
 	font-family: outfit;
 	font-size: 15px;
 	line-height: 1.5;
 }
 
+.character-body {
+	width: 100%;
+	max-width: 42rem;
+	text-align: left;
+	font-family: outfit;
+	font-size: 15px;
+	line-height: 1.6;
+}
+
+.character-body p {
+	margin: 0 0 1rem;
+}
+
 /* ---- Sessions / audio ---- */
 .audiocontainer {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
 	gap: 1.75rem;
 	margin-top: 2rem;
 	width: 100%;
@@ -444,7 +465,7 @@ footer ul li {
 /* ---- Scrolls (World page list) ---- */
 .scrollcontainer {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
 	gap: 1.75rem;
 	margin-top: 1.5rem;
 	width: 100%;
@@ -522,13 +543,109 @@ a.scrollbox-link:hover .scrollbox {
 
 	.parent > article {
 		width: min(960px, calc(100% - 1.5rem));
+		padding: 1rem 1.1rem;
+	}
+
+	.charactercontainer {
+		grid-template-columns: 1fr;
+	}
+
+	.characterbox {
+		flex-direction: column;
+		text-align: center;
+	}
+
+	.characterdetails h4,
+	.characterdetails p {
+		text-align: center;
+	}
+
+	.scrollcontainer,
+	.audiocontainer {
+		grid-template-columns: 1fr;
 	}
 }
 
 @media (max-width: 575.98px) {
+	.banner-image img {
+		height: 120px;
+		min-height: 120px;
+		margin-top: 6px;
+	}
+
+	.parent > article {
+		width: calc(100% - 1rem);
+		padding: 0.9rem 0.85rem;
+		margin: 0.25rem auto 1rem;
+	}
+
+	.parent > article.home-article {
+		width: calc(100% - 1rem);
+	}
+
+	article h1 {
+		font-size: 18px;
+		padding-inline: 0.25rem;
+	}
+
+	article h3 {
+		font-size: 13px;
+	}
+
+	.mainPara {
+		font-size: 11px;
+		padding-inline: 0.15rem;
+	}
+
 	.charactercontainer,
-	.audiocontainer {
-		grid-template-columns: 1fr;
+	.audiocontainer,
+	.scrollcontainer {
 		gap: 1.25rem;
+		margin-top: 1rem;
+	}
+
+	.characterbox,
+	.scrollbox,
+	.audiobox {
+		padding: 1rem;
+	}
+
+	.charimage {
+		width: 130px;
+		height: 156px;
+	}
+
+	.characterdetails h4,
+	.scrolldetails h4 {
+		font-size: 16px;
+	}
+
+	.profile-image {
+		width: min(220px, 70vw);
+		height: auto;
+		aspect-ratio: 220 / 280;
+	}
+
+	.scrollimage {
+		width: min(160px, 55vw);
+		height: auto;
+		aspect-ratio: 160 / 200;
+	}
+
+	.home-campaigns {
+		gap: 1rem;
+		margin: 0.75rem 0 1rem;
+	}
+
+	.home-campaign-frame figcaption {
+		font-size: 13px;
+	}
+
+	footer ul {
+		gap: 1rem 1.5rem;
+	}
+
+	footer span {
+		font-size: 14px;
 	}
 }
