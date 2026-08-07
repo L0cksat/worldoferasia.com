@@ -140,15 +140,16 @@ article h3 {
 	object-fit: contain;
 }
 
-/* Home: two equal campaign tiles side by side */
+/* Home: two equal campaign tiles side by side (stack when narrow) */
 .parent > article.home-article {
 	/* Room for two 500px tiles + gap inside the panel */
 	width: min(1120px, calc(100% - 1.5rem));
+	overflow-x: clip;
 }
 
 .home-campaigns {
 	display: flex;
-	flex-wrap: nowrap;
+	flex-wrap: wrap;
 	justify-content: center;
 	align-items: flex-start;
 	gap: 1.5rem;
@@ -157,24 +158,27 @@ article h3 {
 }
 
 .home-campaign-link {
+	/* Shrink/grow with the row; 100% width falls back when only one fits */
 	display: block;
-	flex: 0 0 auto;
+	flex: 1 1 280px;
+	width: 100%;
+	max-width: 500px;
+	min-width: 0;
 	text-decoration: none;
 	color: inherit;
 }
 
 .home-campaign-frame {
-	width: 500px;
-	max-width: 100%;
+	width: 100%;
 	margin: 0;
 	text-align: center;
 }
 
 .home-campaign-frame img {
 	display: block;
-	width: 500px;
-	max-width: 100%;
-	height: 400px;
+	width: 100%;
+	height: auto;
+	aspect-ratio: 5 / 4;
 	object-fit: cover;
 	object-position: center;
 	border: 3px solid black;
@@ -194,24 +198,10 @@ article h3 {
 }
 
 .campaign-landing-hero {
+	width: 100%;
+	max-width: 500px;
 	margin-left: auto;
 	margin-right: auto;
-}
-
-@media (max-width: 1100px) {
-	.home-campaigns {
-		flex-wrap: wrap;
-	}
-
-	.home-campaign-frame,
-	.home-campaign-frame img {
-		width: min(500px, 100%);
-	}
-
-	.home-campaign-frame img {
-		height: auto;
-		aspect-ratio: 500 / 400;
-	}
 }
 
 article dl {
@@ -633,8 +623,22 @@ a.scrollbox-link:hover .scrollbox {
 	}
 
 	.home-campaigns {
+		flex-direction: column;
+		align-items: stretch;
 		gap: 1rem;
 		margin: 0.75rem 0 1rem;
+	}
+
+	.home-campaign-link {
+		flex: 1 1 auto;
+		max-width: none;
+		width: 100%;
+	}
+
+	.home-campaign-frame img {
+		width: 100%;
+		height: auto;
+		aspect-ratio: 5 / 4;
 	}
 
 	.home-campaign-frame figcaption {
