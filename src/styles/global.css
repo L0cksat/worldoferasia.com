@@ -62,14 +62,17 @@ body {
 .banner-image {
 	grid-column: 1 / -1;
 	width: 100%;
+	overflow: hidden;
 }
 
+/* Desktop: cropped strip; title is centered in the art → keep it in view */
 .banner-image img {
 	display: block;
-	min-height: 220px;
-	height: 200px;
 	width: 100%;
+	height: clamp(280px, 28vw, 465px);
+	min-height: 280px;
 	object-fit: cover;
+	object-position: center center;
 	margin-top: 10px;
 }
 
@@ -526,9 +529,14 @@ a.scrollbox-link:hover .scrollbox {
 
 /* ---- Narrow screens ---- */
 @media (max-width: 991.98px) {
+	/* Show nearly the full banner (≈2:1 art) instead of a thin cropped strip */
 	.banner-image img {
-		height: 160px;
-		min-height: 160px;
+		height: auto;
+		min-height: 0;
+		aspect-ratio: 1774 / 887;
+		object-fit: cover;
+		object-position: center center;
+		margin-top: 8px;
 	}
 
 	.parent > article {
@@ -558,8 +566,11 @@ a.scrollbox-link:hover .scrollbox {
 
 @media (max-width: 575.98px) {
 	.banner-image img {
-		height: 120px;
-		min-height: 120px;
+		height: auto;
+		min-height: 0;
+		aspect-ratio: 1774 / 887;
+		object-fit: cover;
+		object-position: center center;
 		margin-top: 6px;
 	}
 
