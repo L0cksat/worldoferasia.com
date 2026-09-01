@@ -329,7 +329,7 @@ a.characterbox-link:hover .characterbox {
 /* ---- Sessions / audio ---- */
 .audiocontainer {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
 	gap: 1.75rem;
 	margin-top: 2rem;
 	width: 100%;
@@ -350,7 +350,7 @@ a.characterbox-link:hover .characterbox {
 /* Fixed "cover" box above the player — image fills it without blowing up the card */
 .audioimage {
 	width: 100%;
-	max-width: 220px;
+	max-width: 380px;
 	aspect-ratio: 1 / 1;
 	overflow: hidden;
 	border: 3px solid black;
