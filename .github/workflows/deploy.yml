@@ -1,10 +1,18 @@
-name: Deploy to VPS
+
+name: Deploy World of Erasia to VPS
 
 on:
   push:
     branches:
       - main
   workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: worldofearisia-production
+  cancel-in-progress: true
 
 jobs:
   build-and-deploy:
@@ -17,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: 22
           cache: npm
 
       - name: Install dependencies
@@ -26,63 +34,92 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
+      - name: Verify build output
+        run: test -s dist/index.html
+
       - name: Pack dist into site.tar.gz
         run: |
           set -euo pipefail
           tar -czf site.tar.gz -C dist .
           ls -lh site.tar.gz
 
-      # Show EVERY relevant filesystem — /var/www free does NOT mean / or /tmp is free
-      - name: Probe VPS disk + target
-        uses: appleboy/ssh-action@v1.2.0
+      - name: Check VPS and target directory
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          fingerprint: ${{ secrets.VPS_HOST_FINGERPRINT }}
           script: |
-            set -euo pipefail
-            TARGET="${{ secrets.VPS_TARGET_DIR }}"
-            echo "TARGET=${TARGET}"
-            mkdir -p "${TARGET}"
-            echo "=== mounts for key paths ==="
-            df -h / /tmp /var /var/www /var/www/html "${TARGET}" 2>/dev/null || df -h
-            echo "=== inodes ==="
-            df -ih / /tmp /var "${TARGET}" 2>/dev/null || df -ih
-            echo "=== which filesystem owns TARGET? ==="
-            df -h "${TARGET}"
-            touch "${TARGET}/.deploy-write-test" && rm -f "${TARGET}/.deploy-write-test"
+            set -eu
+            TARGET="/var/www/worldoferasia.stephennicholasjones.com/public"
 
-      # Upload ONE file into TARGET (the place you confirmed has free space),
-      # then extract there. Avoids Burnett Docker action + avoids filling /tmp.
-      - name: Upload site.tar.gz to VPS target
-        uses: appleboy/scp-action@v0.1.7
+            test -d "$TARGET"
+            test "$(realpath "$TARGET")" = "$TARGET"
+            test "$(stat -c '%U' "$TARGET")" = "deploy-web"
+            test -w "$TARGET"
+
+            echo "=== Filesystem ==="
+            df -h "$TARGET"
+            df -ih "$TARGET"
+            echo "=== Target permissions verified ==="
+
+      - name: Upload archive
+        uses: appleboy/scp-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          fingerprint: ${{ secrets.VPS_HOST_FINGERPRINT }}
           source: site.tar.gz
           target: ${{ secrets.VPS_TARGET_DIR }}
           overwrite: true
 
-      - name: Extract site on VPS
-        uses: appleboy/ssh-action@v1.2.0
+      - name: Extract and deploy site
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          fingerprint: ${{ secrets.VPS_HOST_FINGERPRINT }}
           script: |
-            set -euo pipefail
-            TARGET="${{ secrets.VPS_TARGET_DIR }}"
-            cd "${TARGET}"
-            test -f site.tar.gz
-            # Clear old site files but keep the directory + the new tarball
-            find . -mindepth 1 ! -name 'site.tar.gz' -exec rm -rf {} +
-            tar -xzf site.tar.gz
-            rm -f site.tar.gz
-            echo "=== deployed files (top) ==="
-            ls -la
-            echo "=== disk after deploy ==="
-            df -h "${TARGET}"
+            set -eu
+            TARGET="/var/www/worldoferasia.stephennicholasjones.com/public"
+            ARCHIVE="$TARGET/site.tar.gz"
+
+            test -d "$TARGET"
+            test "$(realpath "$TARGET")" = "$TARGET"
+            test -s "$ARCHIVE"
+
+            # Remove only the previous top-level site contents,
+            # preserving the uploaded archive until extraction.
+            find "$TARGET" -mindepth 1 -maxdepth 1 \
+              ! -name 'site.tar.gz' -exec rm -rf -- {} +
+
+            tar -xzf "$ARCHIVE" -C "$TARGET"
+            rm -f "$ARCHIVE"
+
+            test -s "$TARGET/index.html"
+
+            echo "=== Deployed files ==="
+            ls -lah "$TARGET"
+            echo "=== Disk usage ==="
+            df -h "$TARGET"
+
+      - name: Check public HTTP site
+        run: |
+          for attempt in 1 2 3 4 5; do
+            if curl --fail --silent --show-error \
+              http://worldoferasia.stephennicholasjones.com/ \
+              --output /dev/null; then
+              echo "HTTP check passed."
+              exit 0
+            fi
+            sleep 3
+          done
+
+          echo "HTTP check failed."
+          exit 1
